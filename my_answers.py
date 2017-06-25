@@ -49,16 +49,16 @@ def clean_text(text):
     # find all unique characters in the text
     import string
 
-    printable = set(string.printable)
-    printable.remove('\t')
-    printable.remove('\n')
-    printable.remove('\r')
-    printable.remove('\x0b')
-    printable.remove('\x0c')
+    punctuation = ''.join([' ', '!', ',', '.', ':', ';', '?'])
+    lower_case = string.ascii_lowercase
+    printable = set(lower_case + punctuation)
+
 
     # remove as many non-english characters and character sequences as you can 
-    filter(lambda ch: ch in printable, text)
-    
+    # filter(lambda ch: ch in printable, text)
+    clear_chars = (ch if ch in printable else " " for ch in text)
+    text = ''.join(clear_chars)
+
     # shorten any extra dead space created above
     text = text.replace('  ',' ')
 
